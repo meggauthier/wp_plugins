@@ -9,7 +9,20 @@ Author URI: https://meg-gauthier.com
 */
 
 function html_code() {
-    echo "<h3>Hello</h3>";
+    $result = count_users();
+    echo 'There are ', $result['total_users'], 'total_users';
+    foreach($result['avail_roles'] as $role => $count)
+        echo ', ', $count, 'are', $role, 's';
+    echo '.';
+    
+    echo "<br>";
+    
+    $total_posts = wp_count_posts();
+    $posts_count = $total_posts->publish;
+    
+    
+    echo "total posts: " . $posts_count;
+
 }
 
 function sp_shortcode() {
@@ -20,6 +33,6 @@ function sp_shortcode() {
     return ob_get_clean();
 }
 
-add_code( 'wp_stats', 'sp_shortcode' );
+add_shortcode( 'wp_stats', 'sp_shortcode' );
 
 ?>
